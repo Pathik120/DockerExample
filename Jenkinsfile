@@ -18,6 +18,20 @@ stage("Package") {
           sh "/usr/bin/mvn package"
      }
 }
+          
+          stage("Docker build") {
+     steps {
+      
+          sh "docker build -t pathik_tomcat ."
+     }
+}
+
+stage("Deploy to staging") {
+     steps {
+ 
+          sh "docker run -d -it -v /var/lib/jenkins/workspace/DockerContainer/target/:/usr/local/tomcat/webapps/ -p 9090:8080 --name Testtomcat1 pathik_tomcat"
+     }
+}
 
 
 
@@ -25,7 +39,7 @@ stage("Package") {
      }
   post {
      always {
-          sh "echo 'I did It'"
+          sh "echo 'Successfull It'"
      }
 }
 }
