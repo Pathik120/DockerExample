@@ -22,7 +22,7 @@ stage("Package") {
           stage("Docker build") {
      steps {
       
-          sh "docker build -t pathik_tomcat ."
+          sh "sudo docker build -t pathik_tomcat ."
      }
 }
 
