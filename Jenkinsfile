@@ -19,17 +19,19 @@ stage("Package") {
      }
 }
           
+          stage('SonarQube Analysis') {
+        def mvnHome =  tool name: 'maven-3', type: 'maven'
+        withSonarQubeEnv('sonarqube') { 
+          sh "usr/bin/mvn sonar:sonar"
+        }
+          
           stage("Docker build") {
      steps {
       
           sh "docker build -t pathik_tomcat ."
      }
 }
-          stage('SonarQube Analysis') {
-        def mvnHome =  tool name: 'maven-3', type: 'maven'
-        withSonarQubeEnv('sonarqube') { 
-          sh "usr/bin/mvn sonar:sonar"
-        }
+          
 
 stage("Deploy to staging") {
      steps {
