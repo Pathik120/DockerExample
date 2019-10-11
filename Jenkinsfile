@@ -24,6 +24,7 @@ stage("Package") {
         withSonarQubeEnv('sonarqube') { 
           sh "usr/bin/mvn sonar:sonar"
         }
+    }
           
           stage("Docker build") {
      steps {
